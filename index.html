@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sticky Notes App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+      margin: 0;
+    }
+
+    #noteInput {
+      width: 400px;
+      padding: 12px 15px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      outline: none;
+      margin-bottom: 30px;
+      transition: 0.3s;
+    }
+
+    #noteInput:focus {
+      border-color: #666;
+    }
+
+    #notesContainer {
+      width: 420px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .note {
+      padding: 20px;
+      border-radius: 10px;
+      color: #333;
+      font-weight: 500;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      word-wrap: break-word;
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <input type="text" id="noteInput" placeholder="Type notes" />
+  <div id="notesContainer"></div>
+
+  <script>
+    const input = document.getElementById("noteInput");
+    const container = document.getElementById("notesContainer");
+
+    function getRandomColor() {
+      const colors = [
+        "#FFADAD",
+        "#FFD6A5",
+        "#FDFFB6",
+        "#CAFFBF",
+        "#9BF6FF",
+        "#A0C4FF",
+        "#BDB2FF",
+        "#FFC6FF"
+      ];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    input.addEventListener("keypress", function(event) {
+      if (event.key === "Enter" && input.value.trim() !== "") {
+        const note = document.createElement("div");
+        note.className = "note";
+        note.textContent = input.value;
+        note.style.backgroundColor = getRandomColor();
+
+        container.appendChild(note);
+        input.value = "";
+      }
+    });
+  </script>
+
+</body>
+</html>
