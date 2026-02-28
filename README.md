@@ -1,85 +1,125 @@
-# 🗒️ Sticky Notes Web Application
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sticky Notes</title>
 
-A simple and interactive Sticky Notes web application built using HTML, CSS, and JavaScript.
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    margin: 0;
+  }
 
-Users can quickly create colorful notes, view the latest note on top, and reset all notes instantly.
+  .top-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
 
----
+  #noteInput {
+    width: 320px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+  }
 
-## 🚀 Features
+  #noteInput:focus {
+    border-color: #555;
+  }
 
-- 📝 Add notes by typing in the input bar and pressing **Enter**
-- 🎨 Each note appears in a **random background color**
-- ⬆️ New notes are added to the **top** of the list
-- 🔁 Reset button clears all existing notes
-- ⚡ Clean and responsive UI
-- 💡 Built using pure Vanilla JavaScript (no external libraries)
+  #resetBtn {
+    padding: 12px 18px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background: #ff5c5c;
+    color: white;
+  }
 
----
+  #resetBtn:hover {
+    background: #e04848;
+  }
 
-## 📂 Project Structure
+  #notesContainer {
+    width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
 
-StickyNotes/
-│
-└── index.html
+  .note {
+    padding: 20px;
+    border-radius: 10px;
+    color: #333;
+    font-weight: 500;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    word-wrap: break-word;
+  }
+</style>
+</head>
 
----
+<body>
 
-## 🛠️ Technologies Used
+<div class="top-bar">
+  <input type="text" id="noteInput" placeholder="Type notes">
+  <button id="resetBtn">Reset</button>
+</div>
 
-- HTML – Structure
-- CSS – Styling and layout
-- JavaScript – DOM manipulation and interactivity
+<div id="notesContainer"></div>
 
----
+<script>
+document.addEventListener("DOMContentLoaded", function() {
 
-## ▶️ How to Run Locally
+  const input = document.getElementById("noteInput");
+  const container = document.getElementById("notesContainer");
+  const resetBtn = document.getElementById("resetBtn");
 
-1. Download or clone the project.
-2. Open the project folder.
-3. Double-click `index.html`
+  function getRandomColor() {
+    const colors = [
+      "#FFADAD",
+      "#FFD6A5",
+      "#FDFFB6",
+      "#CAFFBF",
+      "#9BF6FF",
+      "#A0C4FF",
+      "#BDB2FF",
+      "#FFC6FF"
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
 
-OR
+  input.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      const text = input.value.trim();
+      if (text !== "") {
 
-Using VS Code:
-- Right click `index.html`
-- Select **Open with Live Server**
+        const note = document.createElement("div");
+        note.className = "note";
+        note.textContent = text;
+        note.style.backgroundColor = getRandomColor();
 
----
+        // Add newest note on TOP
+        container.prepend(note);
 
-## 🌐 Deployment
+        input.value = "";
+      }
+    }
+  });
 
-Since this is a static project, it can be deployed easily using:
+  resetBtn.addEventListener("click", function() {
+    container.innerHTML = "";
+  });
 
-- Netlify (Drag & Drop method)
-- GitHub Pages
-- Vercel
+});
+</script>
 
-No backend configuration is required.
-
----
-
-## ⚙️ How It Works
-
-- The input field listens for the "keydown" event.
-- When the **Enter key** is pressed:
-  - A new div element is created.
-  - A random background color is assigned.
-  - The note is inserted at the top of the container.
-- The Reset button clears all notes from the page.
-
----
-
-## 📌 Future Improvements
-
-- 💾 Save notes using localStorage
-- 🗑 Add individual delete buttons
-- ✏ Edit note functionality
-- 🌙 Dark mode
-- 📱 Better mobile responsiveness
-
----
-
-## 📄 License
-
-This project is open-source and free to use for learning purposes.
+</body>
+</html>
