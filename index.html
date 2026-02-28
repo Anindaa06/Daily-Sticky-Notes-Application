@@ -36,6 +36,20 @@
       gap: 15px;
     }
 
+    #resetBtn {
+    padding: 12px 18px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background: #ff5c5c;
+    color: white;
+  }
+
+  #resetBtn:hover {
+    background: #e04848;
+  }
+
     .note {
       padding: 20px;
       border-radius: 10px;
@@ -54,12 +68,17 @@
 </head>
 <body>
 
-  <input type="text" id="noteInput" placeholder="Type notes" />
-  <div id="notesContainer"></div>
+<div class="top-bar">
+  <input type="text" id="noteInput" placeholder="Type notes">
+  <button id="resetBtn">Reset</button>
+</div>
+
+<div id="notesContainer"></div>
 
   <script>
     const input = document.getElementById("noteInput");
     const container = document.getElementById("notesContainer");
+    const resetBtn = document.getElementById("resetBtn");
 
     function getRandomColor() {
       const colors = [
@@ -86,7 +105,12 @@
         input.value = "";
       }
     });
+
+     resetBtn.addEventListener("click", function() {
+    container.innerHTML = "";
+  });
   </script>
 
 </body>
+
 </html>
